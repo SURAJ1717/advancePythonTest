@@ -7,6 +7,8 @@ app.config(function ($interpolateProvider) {
 
 app.controller('AppController', ['$scope', '$http', function ($scope, $http) {
 
+    console.log(window.location.hostname);
+    
     $scope.base_url = 'http://'+ window.location.hostname +':8000/';
     $scope.processing = false;
     var vm = this;

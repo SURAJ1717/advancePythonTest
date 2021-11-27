@@ -7,21 +7,15 @@ app.config(function ($interpolateProvider) {
 
 app.controller('AppController', ['$scope', '$http', function ($scope, $http) {
 
-    console.log(window.location.hostname);
-    if(window.location.hostname == '127.0.0.1'){
-
-        $scope.base_url = 'http://'+ window.location.hostname +':8000/';
-    }else{
-    
-        $scope.base_url = 'https://'+ window.location.hostname +'/';
-    }
-
+    $scope.base_url = (window.location.hostname == '127.0.0.1') ? 'http://'+ window.location.hostname +':8000/' : 'https://'+ window.location.hostname +'/';
     $scope.processing = false;
     var vm = this;
 
     vm.books = [];
+    vm.page_number = 1;
+    vm.languages = [];
 
-    $scope.postForm = function(API, Data){
+    $scope.postForm = function(API, Data, page_process=null){
 
         $scope.processing = true;
 
@@ -31,6 +25,13 @@ app.controller('AppController', ['$scope', '$http', function ($scope, $http) {
 
         angular.forEach(Data, function (value, key) { requestData.append(key, value) });
         
+        if(page_process){
+
+            vm.page_number = (page_process == 'increase') ? vm.page_number+1 : vm.page_number-1;
+        }
+
+        requestData.append("page_number", vm.page_number);
+
         $http({
             method : "POST",
             url : url,
@@ -43,6 +44,9 @@ app.controller('AppController', ['$scope', '$http', function ($scope, $http) {
             function (response) {
                 
                 console.log(response);
+                vm.books = response.data.page_obj
+                vm.page_number = response.data.page_number
+                
                 $scope.processing = false;
             }, 
 
@@ -53,5 +57,32 @@ app.controller('AppController', ['$scope', '$http', function ($scope, $http) {
             }
         );
     }
+
+    $scope.getLanguages = function(API){
+
+        var url = $scope.base_url + API;
+        
+        $http({
+            method : "POST",
+            url : url,
+            headers: {
+                        'Content-Type': undefined,
+                    },
+            data: {},
+        }).then(
+
+            function (response) {
+                
+                console.log(response);
+                vm.languages = response.data
+            }, 
+
+            function (error) {
+
+                console.log(error);
+            }
+        );
+    }
+
 }]);
 

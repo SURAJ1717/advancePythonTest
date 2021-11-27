@@ -7,4 +7,6 @@ urlpatterns = [
     path("", views.index),
 
     path("get-books", views.getBooks),
+
+    path("get-languages", views.getLanguages),
 ]

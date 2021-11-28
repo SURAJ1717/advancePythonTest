@@ -12,6 +12,8 @@ app.controller('AppController', ['$scope', '$http', function ($scope, $http) {
     var vm = this;
 
     vm.books = [];
+    vm.total_pages = 1;
+    vm.total_books = 0;
     vm.page_number = 1;
     vm.languages = [];
 
@@ -45,7 +47,10 @@ app.controller('AppController', ['$scope', '$http', function ($scope, $http) {
                 
                 console.log(response);
                 vm.books = response.data.page_obj
+                vm.total_books = response.data.total_books
                 vm.page_number = response.data.page_number
+
+                vm.total_pages = Math.ceil(vm.total_books/25)
                 
                 $scope.processing = false;
             }, 

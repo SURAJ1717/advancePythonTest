@@ -19,65 +19,65 @@
 
     <div class="container my-4" ng-init="formData={}; postForm('firstApp/get-books', {}); getLanguages('firstApp/get-languages')">
         <div class="row">
-            <h1>{{variable}}</h1>
+            <h1>{{variable}} - ([[App.total_books]])</h1>
             <p>Page No: <b style="color: red;">[[App.page_number]]</b></p>
         </div>
 
         <div class="row mt-3">
             <div class="col-2">
-                <ui-select multiple ng-model="formData.language_id" theme="selectize">
+                <ui-select multiple ng-model="formData.lang_codes" theme="selectize" ng-change="App.page_number=1; postForm('firstApp/get-books', formData)">
                     <ui-select-match placeholder="Select Languages">
                         [[$item.code]]
                     </ui-select-match>
-                    <ui-select-choices repeat="item.id as item in App.languages | filter: $select.search">
+                    <ui-select-choices repeat="item.code as item in App.languages | filter: $select.search">
                         [[item.code]]
                     </ui-select-choices>
                 </ui-select>
             </div>
             <div class="col-2">
-                <input type="text" class="form-control" id="bookID" ng-model="formData.bookID" placeholder="search book ID">
+                <input type="text" class="form-control" id="bookID" ng-model="formData.bookID" placeholder="search book ID" ng-change="App.page_number=1; postForm('firstApp/get-books', formData)">
             </div>
             <div class="col-2">
-                <input type="text" class="form-control" id="title" ng-model="formData.title" placeholder="search title">
+                <input type="text" class="form-control" id="title" ng-model="formData.title" placeholder="search title" ng-change="App.page_number=1; postForm('firstApp/get-books', formData)">
             </div>
             <div class="col-2">
-                <input type="text" class="form-control" id="author" ng-model="formData.author" placeholder="search author">
+                <input type="text" class="form-control" id="author" ng-model="formData.author" placeholder="search author" ng-change="App.page_number=1; postForm('firstApp/get-books', formData)">
             </div>
             <div class="col-2">
-                <input type="text" class="form-control" id="sob" ng-model="formData.sob" placeholder="subject or bookshelf">
+                <input type="text" class="form-control" id="sob" ng-model="formData.sob" placeholder="subject or bookshelf" ng-change="App.page_number=1; postForm('firstApp/get-books', formData)">
             </div>
             <div class="col-2">
-                <input type="text" class="form-control" id="mime" ng-model="formData.mime" placeholder="search mime-type">
+                <input type="text" class="form-control" id="mime" ng-model="formData.mime" placeholder="search mime-type" ng-change="App.page_number=1; postForm('firstApp/get-books', formData)">
             </div>
         </div>
 
-        <div class="row mt-4" ng-if="!processing && App.books.length>0">
+        <div class="row mt-4" ng-if="!processing && App.total_pages>1">
             <div class="col-12">
                 <nav aria-label="...">
                     <ul class="pagination pagination-sm">
                       <li class="page-item"><a class="page-link" href="" ng-if="App.page_number>1" ng-click="postForm('firstApp/get-books', formData, 'decrease')">Prev</a></li>
-                      <li class="page-item"><a class="page-link" href="" ng-click="postForm('firstApp/get-books', formData, 'increase')">Next</a></li>
+                      <li class="page-item"><a class="page-link" href="" ng-if="App.total_pages>App.page_number" ng-click="postForm('firstApp/get-books', formData, 'increase')">Next</a></li>
                     </ul>
                 </nav>
             </div>
         </div>
 
-        <div class="row">
+        <div class="row" ng-cloak>
             <div class="col-12 d-flex my-5" ng-if="processing">
                 <i class="fas fa-spinner fa-spin m-auto" style="font-size: 35px;"></i>
             </div>
 
-            <div class="col-12" ng-if="!processing">
+            <div class="col-12 mt-2" ng-if="!processing">
                 <div ng-if="App.books.length>0">
-                    <table class="table">
+                    <table class="table small">
                         <thead>
                             <tr>
                                 <th scope="col">ID</th>
                                 <th scope="col">Downloads</th>
                                 <th scope="col">Title</th>
-                                <th scope="col">Author</th>
+                                <th scope="col">Authors</th>
                                 <th scope="col">Genre</th>
-                                <th scope="col">Language</th>
+                                <th scope="col">Languages</th>
                                 <th scope="col">Subjects</th>
                                 <th scope="col">Bookshelfs</th>
                                 <th scope="col">Links</th>
@@ -89,7 +89,7 @@
                                 <td scope="col">[[item.download_count]]</td>
                                 <td scope="col">[[item.title]]</td>
                                 <td scope="col">Author</td>
-                                <td scope="col">[[item.title]]</td>
+                                <td scope="col">[[item.media_type]]</td>
                                 <td scope="col">Language</td>
                                 <td scope="col">Subjects</td>
                                 <td scope="col">Bookshelfs</td>
@@ -109,7 +109,7 @@
                 <nav aria-label="...">
                     <ul class="pagination pagination-sm">
                       <li class="page-item"><a class="page-link" href="" ng-if="App.page_number>1" ng-click="postForm('firstApp/get-books', formData, 'decrease')">Prev</a></li>
-                      <li class="page-item"><a class="page-link" href="" ng-click="postForm('firstApp/get-books', formData, 'increase')">Next</a></li>
+                      <li class="page-item"><a class="page-link" href="" ng-if="App.total_pages>App.page_number" ng-click="postForm('firstApp/get-books', formData, 'increase')">Next</a></li>
                     </ul>
                 </nav>
             </div>

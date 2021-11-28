@@ -68,35 +68,43 @@
             </div>
 
             <div class="col-12 mt-2" ng-if="!processing">
-                <div ng-if="App.books.length>0">
-                    <table class="table small">
-                        <thead>
-                            <tr>
-                                <th scope="col">G_ID</th>
-                                <th scope="col">Downloads</th>
-                                <th scope="col">Title</th>
-                                <th scope="col">Authors</th>
-                                <th scope="col">Genre</th>
-                                <th scope="col">Languages</th>
-                                <th scope="col">Subjects</th>
-                                <th scope="col">Bookshelfs</th>
-                                <th scope="col">Links</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="item in App.books">
-                                <th scope="row">[[item.gutenberg_id]]</th>
-                                <td scope="col">[[item.download_count]]</td>
-                                <td scope="col">[[item.title]]</td>
-                                <td scope="col">Author</td>
-                                <td scope="col">[[item.media_type]]</td>
-                                <td scope="col">Language</td>
-                                <td scope="col">Subjects</td>
-                                <td scope="col">Bookshelfs</td>
-                                <td scope="col">Links</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="row" ng-if="App.books.length>0">
+                    <div class="col-3 mt-2" ng-repeat="item in App.books">
+                        <div class="card w-100 small">
+                            <div class="card-body">
+                                <h5 class="card-title">G_ID <span class="text-warning">[[item.gutenberg_id]]</span></h5>
+                                <p class="card-text">Downloads: <b>[[item.download_count]]</b></p>
+                                <p class="card-text">Title: <b>[[item.title]]</b></p>
+                                <p class="card-text">Genre: <b>[[item.media_type]]</b></p>
+                                <hr>
+                                <p class="card-text"><b>Authors: </b>
+                                    <br>
+                                    <span class="badge badge-info ml-1" style="margin-left:3px; font-weight: 400; background: blueviolet;" ng-repeat="author in item.authors">[[author.name]]</span>
+                                </p>
+                                <hr>
+                                <p class="card-text"><b>Languages: </b>
+                                    <br>
+                                    <span class="badge badge-info ml-1" style="margin-left:3px; font-weight: 400; background: sienna;" ng-repeat="language in item.languages">[[language.code]]</span>
+                                </p>
+                                <hr>
+                                <p class="card-text"><b>Subjects: </b>
+                                    <br>
+                                    <span class="badge badge-info ml-1" style="margin-left:3px; font-weight: 400; background: goldenrod;" ng-repeat="subject in item.subjects">[[subject.name]]</span>
+                                </p>
+                                <hr>
+                                <p class="card-text"><b>Bookshelfs: </b>
+                                    <br>
+                                    <span class="badge badge-info ml-1" style="margin-left:3px; font-weight: 400; background: darkblue;" ng-repeat="bookshelf in item.bookshelfs">[[bookshelf.name]]</span>
+                                </p>
+                                <hr>
+                                <p class="card-text"><b>Links: </b>
+                                    <br>
+                                    <a href="[[format.url]]" target="_blank" ng-repeat="format in item.formats">
+                                        [[format.url]]</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="alert alert-warning" ng-if="App.books.length==0">
                     Books not found

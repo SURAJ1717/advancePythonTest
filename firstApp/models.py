@@ -62,6 +62,11 @@ class BooksBook(models.Model):
         managed = False
         db_table = 'books_book'
 
+    @property
+    def formats(self):
+        return self.booksformat_set.all()
+
+
 class BooksFormat(models.Model):
     id = models.IntegerField(primary_key=True)
     mime_type = models.CharField(max_length=32)

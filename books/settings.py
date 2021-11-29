@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-c^wf!tw2e+_pak%i1$%(4h$oy1bcp%&on-@wx1apy0i0auq=+&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['djangofirstapp1717.herokuapp.com', '127.0.0.1']
+ALLOWED_HOSTS = ['djangofirstapp1717.herokuapp.com', '127.0.0.1', '3.140.170.188']
 
 
 # Application definition
@@ -85,11 +85,11 @@ DATABASES = {
 
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'defaultdb',
-        'HOST': 'db-mysql-blr1-84705-do-user-3751173-0.b.db.ondigitalocean.com',
-        'PORT': '25060',
-        'USER': 'doadmin',
-        'PASSWORD': 'Yva8eg1vhVeNmavx'
+        'NAME': 'pythonchallange',
+        'HOST': 'localhost',
+        'PORT': '3306',
+        'USER': 'admin',
+        'PASSWORD': 'admin'
     }
 }
 

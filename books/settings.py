@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
-from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -86,11 +85,11 @@ DATABASES = {
 
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': config('DBNAME'),
-        'HOST': config('DBHOST'),
-        'PORT': config('DBPORT'),
-        'USER': config('DBUSER'),
-        'PASSWORD': config('DBPASSWORD')
+        'NAME': 'defaultdb',
+        'HOST': 'db-mysql-blr1-84705-do-user-3751173-0.b.db.ondigitalocean.com',
+        'PORT': '25060',
+        'USER': 'doadmin',
+        'PASSWORD': 'Yva8eg1vhVeNmavx'
     }
 }
 

@@ -24,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-c^wf!tw2e+_pak%i1$%(4h$oy1bcp%&on-@wx1apy0i0auq=+&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['3.140.170.188', 'djangofirstapp1717.herokuapp.com', '127.0.0.1', '0.0.0.0']
+ALLOWED_HOSTS = ['127.0.0.1']
  
 
 # Application definition
@@ -44,7 +44,6 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -86,10 +85,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'pythonchallange',
-        'HOST': 'localhost',
+        'HOST': '127.0.0.1',
         'PORT': '3306',
-        'USER': 'admin',
-        'PASSWORD': 'admin'
+        'USER': 'root',
+        'PASSWORD': ''
     }
 }
 
@@ -141,4 +140,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # added manually
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [ os.path.join(BASE_DIR, "static") ]
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
